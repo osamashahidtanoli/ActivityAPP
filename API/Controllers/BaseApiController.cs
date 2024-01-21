@@ -1,12 +1,14 @@
 using API.Extentions;
 using Application.Core;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
-    [Route("/api[controller]")]
+    [Route("api/[controller]")]
     public class BaseApiController : ControllerBase
     {
         private IMediator _mediator;
@@ -31,7 +33,7 @@ namespace API.Controllers
                 return NotFound();
             if (result.IsSuccess && result.Value != null)
             {
-                Response.AddPaginationHeader(result.Value.CurrentPage, 
+                Response.AddPaginationHeader(result.Value.CurrentPage,
                 result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
                 return Ok(result.Value);
             }
