@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.DTOs;
 using API.Services;
 using Domain;
@@ -72,6 +73,22 @@ namespace API.Controllers
             }
 
             return BadRequest(result.Errors);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var user = await _userManager.Users.Include(p => p.Photos)
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Image = user.Photos?.FirstOrDefault(x => x.isMain)?.Url,
+                Token = _tokenService.CreateToken(user),
+                UserName = user.UserName
+            };
         }
 
     }
