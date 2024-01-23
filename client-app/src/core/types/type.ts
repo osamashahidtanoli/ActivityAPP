@@ -20,5 +20,33 @@ export interface Attendee {
     hostUserName: string;
     attendees: Attendee[];
   }
+
+  export interface UserLoginPayload {
+    password: string;
+    email: string;
+  }
+
+  export interface UserLoginResponse {
+    token: string;
+    userName: string;
+    displayName: string;
+    image: string;
+  }
+
+  export interface AuthState {
+    token: string | null;
+    userName: string | null;
+    displayUserName: string | null;
+    imageUrl: string | null;
+  }
+
+  export interface AuthPayload {
+    token: string;
+    userName: string;
+    displayUserName: string;
+    imageUrl: string;
+  }
+
+  
   
   
