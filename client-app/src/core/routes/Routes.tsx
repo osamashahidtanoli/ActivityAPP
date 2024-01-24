@@ -5,6 +5,7 @@ import Login from 'components/login/Login';
 import { ROUTES } from 'core/constants/constant';
 import HomePage from 'pages/home/HomePage';
 import PublicRoute from './PublicRoute';
+import ErrorPage from 'pages/error/ErrorPage';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route element={<PublicRoute />}>
         <Route element={<Login />} path={ROUTES.Login} />
       </Route>
+      <Route element={<ErrorPage />} path='*'></Route>
     </Routes>
   );
 };

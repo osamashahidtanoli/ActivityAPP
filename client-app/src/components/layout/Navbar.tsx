@@ -17,7 +17,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { ROUTES } from 'core/constants/constant';
 
-const pages = [ROUTES.Activities, ROUTES.Profile];
+const pages = ['Dashboard', 'Activities'];
 const settings = ['Logout'];
 
 function ResponsiveAppBar() {
@@ -47,7 +47,7 @@ function ResponsiveAppBar() {
 
   const handleRedirect = (page: string) => () => {
     setAnchorElNav(null);
-    navigate(`/${page}`);
+    navigate(page);
   };
 
   return (
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button key={page}>
                 <NavLink
-                  to={`/${page}`}
+                  to={ROUTES[page]}
                   className={({ isActive }) =>
                     isActive ? styles.active : styles.nav
                   }

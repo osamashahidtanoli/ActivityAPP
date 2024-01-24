@@ -16,21 +16,13 @@ type FormValues = {
   password: string;
 };
 
-type snackBarState = {
-  isOpen: boolean;
-  isError: boolean;
-};
-
 const Login = () => {
   const method = useForm<FormValues>();
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [open, setOpen] = React.useState<snackBarState>({
-    isOpen: false,
-    isError: false,
-  });
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -40,9 +32,10 @@ const Login = () => {
   const submitHandler: SubmitHandler<FormValues> = async (data) => {
     const result = await login(data);
     if ('error' in result) {
-      setOpen({ isOpen: true, isError: true });
+      setOpen(true);
     } else {
-      navigate(`/${ROUTES.Activities}`);
+      setOpen(false);
+      navigate(`${ROUTES.Activities}`);
       dispatch(
         setAuth({
           token: result.data.token,
@@ -59,24 +52,24 @@ const Login = () => {
       return;
     }
 
-    setOpen({ isOpen: false, isError: false });
+    setOpen(false);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Snackbar
-        open={open.isOpen}
+        open={open}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleClose}
       >
         <Alert
           onClose={handleClose}
-          severity={open.isError ? 'error' : 'success'}
+          severity='error'
           variant='filled'
           sx={{ width: '100%' }}
         >
-          {open.isError ? 'Invalid Username or Password' : 'Welcome'}
+          Invalid Username or Password
         </Alert>
       </Snackbar>
       <section>

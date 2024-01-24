@@ -47,6 +47,14 @@ export interface Attendee {
     imageUrl: string;
   }
 
+  export interface ActivityGetRequest {
+    IsHost?: boolean;
+    IsGoing?: boolean;
+    StartDate?: string;
+    PageNumber?: number;
+    PageSize?: number;
+  }
+
   
   
   
