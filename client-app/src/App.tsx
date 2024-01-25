@@ -1,4 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
+import CommonErrorBar from 'components/layout/CommonErrorBar';
 import Page from 'components/layout/Page';
 import { accountApi } from 'core/api/account';
 import AppRoutes from 'core/routes/Routes';
@@ -33,7 +34,12 @@ const App = () => {
       </Page>
     );
 
-  return <AppRoutes />;
+  return (
+    <>
+      <CommonErrorBar />
+      <AppRoutes />
+    </>
+  );
 };
 
 export default App;

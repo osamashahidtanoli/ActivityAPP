@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert, Button, Snackbar, ThemeProvider } from '@mui/material';
-import styles from './Login.module.css';
 import backgroundImage from 'assets/scene.jpg';
 import theme from 'core/style/theme';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -9,7 +8,9 @@ import { useLoginMutation } from 'core/api/account';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'core/constants/constant';
 import { useAppDispatch } from 'core/store/store';
-import { setAuth } from 'core/slice/commonSlice';
+import { setAuth, showBar } from 'core/slice/commonSlice';
+import styles from './Login.module.css';
+import CommonErrorBar from 'components/layout/CommonErrorBar';
 
 type FormValues = {
   email: string;
@@ -22,8 +23,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [open, setOpen] = React.useState<boolean>(false);
-
   const {
     handleSubmit,
     formState: { isValid },
@@ -32,9 +31,14 @@ const Login = () => {
   const submitHandler: SubmitHandler<FormValues> = async (data) => {
     const result = await login(data);
     if ('error' in result) {
-      setOpen(true);
+      dispatch(
+        showBar({
+          isOpen: true,
+          message: 'Invalid Username or Password',
+          type: 'error',
+        }),
+      );
     } else {
-      setOpen(false);
       navigate(`${ROUTES.Activities}`);
       dispatch(
         setAuth({
@@ -44,34 +48,19 @@ const Login = () => {
           imageUrl: result.data.image,
         }),
       );
+      dispatch(
+        showBar({
+          isOpen: true,
+          message: `Welcome ${result.data.displayName}`,
+          type: 'success',
+        }),
+      );
     }
-  };
-
-  const handleClose = (_: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        autoHideDuration={4000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity='error'
-          variant='filled'
-          sx={{ width: '100%' }}
-        >
-          Invalid Username or Password
-        </Alert>
-      </Snackbar>
+      <CommonErrorBar />
       <section>
         <div className={styles.imgBox}>
           <img src={backgroundImage} alt='' />

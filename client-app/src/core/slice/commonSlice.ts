@@ -1,13 +1,20 @@
 
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { accountApi } from 'core/api/account';
-import { AuthPayload, AuthState } from 'core/types/type';
+import { AuthPayload, CommonState, ErrorBar } from 'core/types/type';
 
-const initialState: AuthState = {
-  token: localStorage.getItem('token') ?? null,
+const initialState: CommonState = {
+  user: {
+    token: localStorage.getItem('token') ?? null,
   userName: null,
   displayUserName: null,
   imageUrl: null,
+  },
+  snackBar: {
+    isOpen: false,
+    message: '',
+    type: undefined
+  }
 };
 
 const commonSlice = createSlice({
@@ -15,34 +22,44 @@ const commonSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<AuthPayload>) => {
-      state.token = action.payload.token;
-      state.displayUserName = action.payload.displayUserName;
-      state.userName = action.payload.userName;
-      state.imageUrl = action.payload.imageUrl;
+      state.user.token = action.payload.token;
+      state.user.displayUserName = action.payload.displayUserName;
+      state.user.userName = action.payload.userName;
+      state.user.imageUrl = action.payload.imageUrl;
       localStorage.setItem('token', action.payload.token);
     },
     clearAuth: (state) => {
-        state.token = initialState.token;
-        state.displayUserName = initialState.displayUserName;
-        state.userName = initialState.userName;
-        state.imageUrl = initialState.imageUrl;
+        state.user.token = initialState.user.token;
+        state.user.displayUserName = initialState.user.displayUserName;
+        state.user.userName = initialState.user.userName;
+        state.user.imageUrl = initialState.user.imageUrl;
         localStorage.removeItem('token');
     },
+    showBar: (state, action: PayloadAction<ErrorBar>) => {
+      state.snackBar.isOpen = action.payload.isOpen;
+      state.snackBar.message = action.payload.message;
+      state.snackBar.type = action.payload.type;
+    },
+    hideBar: (state) => {
+      state.snackBar.isOpen = initialState.snackBar.isOpen;
+      state.snackBar.message = initialState.snackBar.message;
+      state.snackBar.type = initialState.snackBar.type;
+    }
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       accountApi.endpoints.getCurrentAccount.matchFulfilled,
       (state, action) => {
-        state.token = action.payload.token;
-        state.displayUserName = action.payload.displayName;
-        state.userName = action.payload.userName;
-        state.imageUrl = action.payload.image;
+        state.user.token = action.payload.token;
+        state.user.displayUserName = action.payload.displayName;
+        state.user.userName = action.payload.userName;
+        state.user.imageUrl = action.payload.image;
       }
     )
   },
 });
 
-export const { setAuth, clearAuth } = commonSlice.actions;
+export const { setAuth, clearAuth, showBar, hideBar } = commonSlice.actions;
 
 // Export the reducer
 export default commonSlice.reducer;

@@ -33,11 +33,22 @@ export interface Attendee {
     image: string;
   }
 
+  export interface CommonState {
+    user: AuthState,
+    snackBar:  ErrorBar,
+  }
+
   export interface AuthState {
     token: string | null;
     userName: string | null;
     displayUserName: string | null;
     imageUrl: string | null;
+  }
+
+  export interface ErrorBar {
+    isOpen: boolean,
+    message: string,
+    type?: 'success' | 'error'
   }
 
   export interface AuthPayload {
@@ -53,6 +64,31 @@ export interface Attendee {
     StartDate?: string;
     PageNumber?: number;
     PageSize?: number;
+  }
+
+  export interface ActivityCreateForm {
+    title: string,
+    description: string,
+    category: string,
+    city: string,
+    venue: string,
+    date: string
+  }
+
+  export interface ActivityPostRequest extends ActivityCreateForm {
+    id: string
+  }
+
+  export interface ActivityFilter {
+    PageNumber: number,
+    PageSize: number,
+    IsHost: boolean,
+    IsGoing: boolean,
+    StartDate: undefined | string,
+  }
+
+  export interface ActivitySlice {
+    activityFilter: ActivityFilter
   }
 
   

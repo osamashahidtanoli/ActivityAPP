@@ -8,13 +8,11 @@ const theme = createTheme({
       },
       secondary: {
         main: '#8561c5',
+      },
+      info: {
+        main: '#ffffff'
       }
     },
-    // typography: {
-    //   allVariants: {
-    //     color: "#673ab7",
-    //   },
-    // },
   });
 
   export default theme;

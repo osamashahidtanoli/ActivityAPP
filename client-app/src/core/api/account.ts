@@ -8,7 +8,7 @@ export const accountApi = createApi({
   baseQuery: fetchBaseQuery({ 
     baseUrl: endpoint ,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).commonSlice.token;
+      const token = (getState() as RootState).commonSlice.user.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }

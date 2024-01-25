@@ -6,6 +6,7 @@ interface Props {
   placeholder: string;
   type: string;
   isRequired: boolean;
+  [key: string]: unknown;
 }
 
 const TextInputController = ({
@@ -13,6 +14,7 @@ const TextInputController = ({
   placeholder,
   type,
   isRequired,
+  ...otherProps
 }: Props) => {
   const { control } = useFormContext();
   return (
@@ -25,14 +27,17 @@ const TextInputController = ({
       defaultValue=''
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
-          placeholder={placeholder}
+          id={name}
+          label={placeholder}
           onChange={onChange}
           value={value}
           type={type}
           error={!!error}
-          helperText={error ? error?.message : null}
+          helperText={error ? 'This Field is Required' : null}
           variant='outlined'
           required={isRequired}
+          fullWidth
+          {...otherProps}
         />
       )}
     />

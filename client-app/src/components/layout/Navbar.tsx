@@ -16,6 +16,8 @@ import logo from 'assets/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { ROUTES } from 'core/constants/constant';
+import { useAppDispatch } from 'core/store/store';
+import { clearAuth } from 'core/slice/commonSlice';
 
 const pages = ['Dashboard', 'Activities'];
 const settings = ['Logout'];
@@ -29,6 +31,7 @@ function ResponsiveAppBar() {
   );
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -48,6 +51,12 @@ function ResponsiveAppBar() {
   const handleRedirect = (page: string) => () => {
     setAnchorElNav(null);
     navigate(page);
+  };
+
+  const logOut = () => {
+    setAnchorElNav(null);
+    dispatch(clearAuth());
+    navigate(0);
   };
 
   return (
@@ -170,7 +179,7 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={logOut}>
                   <Typography textAlign='center'>{setting}</Typography>
                 </MenuItem>
               ))}
