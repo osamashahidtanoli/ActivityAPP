@@ -45,9 +45,6 @@ Welcome to the Activity App! This application allows users to create activities 
 - **User Authentication:** Secure user registration and login using Identity Core.
 - **CQRS Pattern:** Efficiently separate command and query responsibilities for improved performance.
 
-
-Yes, including brief definitions or explanations of key concepts such as "Clean Architecture" in your README file can be beneficial. It provides clarity for developers who might be new to these concepts. Here's a suggested addition to your README:
-
 ## Key Concepts
 
 ### Clean Architecture
