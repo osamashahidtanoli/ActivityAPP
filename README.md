@@ -16,7 +16,7 @@ Welcome to the Activity App! This application allows users to create activities 
 ### Frontend
 - **React:** A declarative and efficient JavaScript library for building user interfaces.
 - **React Redux Toolkit:** Facilitates state management in React applications with a focus on simplicity and maintainability.
-- **React Query:** A library for managing, caching, and synchronizing asynchronous data in React applications.
+- **React Redux Toolkit Query:** A library for managing, caching, and synchronizing asynchronous data in React applications.
 - **Material-UI:** A popular React UI framework that provides pre-designed components for a consistent and aesthetic user interface.
 
 ## Getting Started
