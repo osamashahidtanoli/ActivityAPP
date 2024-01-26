@@ -1,9 +1,10 @@
-import { Alert, Box, CircularProgress, Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import ActivityList from 'pages/activity/activityList/ActivityList';
 import { useGetActivitiesQuery } from 'core/api/activities';
 import ActivityFilter from './filter/ActivityFilter';
 import { useAppSelector } from 'core/store/store';
 import { getActivityFiler } from 'core/selectors/selectors';
+import PageLoader from 'components/layout/PageLoader';
 
 const Activity = () => {
   const activityFiler = useAppSelector(getActivityFiler);
@@ -17,19 +18,7 @@ const Activity = () => {
       </Alert>
     );
 
-  if (isLoading)
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '80vh',
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
+  if (isLoading) return <PageLoader />;
 
   return (
     <Grid container columnSpacing={5}>

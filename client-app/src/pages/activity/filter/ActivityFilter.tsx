@@ -99,7 +99,11 @@ const ActivityFilter = () => {
           >
             Create New Activity
           </Typography>
-          <Button variant='outlined' onClick={navigateToCreateActivity}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={navigateToCreateActivity}
+          >
             Create
           </Button>
         </CardContent>

@@ -7,6 +7,7 @@ import HomePage from 'pages/home/HomePage';
 import PublicRoute from './PublicRoute';
 import ErrorPage from 'pages/error/ErrorPage';
 import ActivityEditorPage from 'pages/activityEditor/ActivityEditorPage';
+import ActivityDetailPage from 'pages/activityDetail/ActivityDetailPage';
 
 const AppRoutes = () => {
   return (
@@ -15,7 +16,7 @@ const AppRoutes = () => {
         <Route element={<HomePage />} path='/' />
         <Route element={<ActivityPage />} path={`/${ROUTES.Activities}`} />
         <Route element={<ActivityEditorPage />} path={`/ActivityEditor`} />
-        <Route element={<ActivityEditorPage />} path={`/ActivityEditor/:id`} />
+        <Route element={<ActivityDetailPage />} path={`/ActivityDetail/:id`} />
       </Route>
       <Route element={<PublicRoute />}>
         <Route element={<Login />} path={ROUTES.Login} />

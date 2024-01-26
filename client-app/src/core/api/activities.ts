@@ -15,7 +15,7 @@ export const activityApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['ActivitiesTag'],
+  tagTypes: ['ActivitiesTag', 'ActivityTag'],
   endpoints: (builder) => ({
     getActivities: builder.query<Activity[], ActivityGetRequest>({
       query: (arg) => ({
@@ -32,8 +32,22 @@ export const activityApi = createApi({
         body: {...arg}
       }),
       invalidatesTags: ['ActivitiesTag']
-    })
+    }),
+    updateAttendance: builder.mutation<void, {id: string, type: string}>({
+      query: ({id}) => ({
+        url: `Activities/${id}/attend`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['ActivitiesTag', 'ActivityTag']
+    }),
+    getActivity: builder.query<Activity, string>({
+      query: (id) => ({
+        url: `Activities/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['ActivityTag']
+    }),
   }),
 });
 
-export const { useGetActivitiesQuery, usePostActivityMutation } = activityApi;
+export const { useGetActivitiesQuery, usePostActivityMutation, useUpdateAttendanceMutation, useGetActivityQuery } = activityApi;

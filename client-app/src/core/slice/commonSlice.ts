@@ -1,6 +1,7 @@
 
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { accountApi } from 'core/api/account';
+import { activityApi } from 'core/api/activities';
 import { AuthPayload, CommonState, ErrorBar } from 'core/types/type';
 
 const initialState: CommonState = {
@@ -54,6 +55,14 @@ const commonSlice = createSlice({
         state.user.displayUserName = action.payload.displayName;
         state.user.userName = action.payload.userName;
         state.user.imageUrl = action.payload.image;
+      },
+    )
+    builder.addMatcher(
+      activityApi.endpoints.updateAttendance.matchFulfilled,
+      (state, action) => {
+      state.snackBar.isOpen = true;
+      state.snackBar.message = action.meta.arg.originalArgs.type === 'join' ? 'Successfully Joined Activity' : 'You have Withdraw Your Participation';
+      state.snackBar.type = action.meta.arg.originalArgs.type === 'join' ? 'success' : 'error';
       }
     )
   },
@@ -61,5 +70,4 @@ const commonSlice = createSlice({
 
 export const { setAuth, clearAuth, showBar, hideBar } = commonSlice.actions;
 
-// Export the reducer
 export default commonSlice.reducer;
