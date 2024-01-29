@@ -1,6 +1,6 @@
-import { Box, CircularProgress } from '@mui/material';
 import CommonErrorBar from 'components/layout/CommonErrorBar';
 import Page from 'components/layout/Page';
+import PageLoader from 'components/layout/PageLoader';
 import { accountApi } from 'core/api/account';
 import AppRoutes from 'core/routes/Routes';
 import { getCurrentUser } from 'core/selectors/selectors';
@@ -21,16 +21,7 @@ const App = () => {
   if (isUserAvailabe)
     return (
       <Page>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '80vh',
-          }}
-        >
-          <CircularProgress />
-        </Box>
+        <PageLoader />
       </Page>
     );
 

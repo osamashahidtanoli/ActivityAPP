@@ -17,8 +17,8 @@ import AddIcon from '@mui/icons-material/Add';
 import ActivityAttendees from './ActivityAttendees';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LogoutIcon from '@mui/icons-material/Logout';
-import styles from './ActivityDetail.module.css';
 import useActivity from 'pages/activity/useActivity';
+import styles from './ActivityDetail.module.css';
 
 const ActivityDetail = () => {
   const params = useParams();
@@ -66,8 +66,8 @@ const ActivityDetail = () => {
     { label: 'Category', value: category },
   ];
 
-  const onUpdateAttendance = () => {
-    onAttendanceUpdate({ id: id, type: 'join' });
+  const onUpdateAttendance = (type: string) => () => {
+    onAttendanceUpdate({ id: id, type });
   };
 
   return (
@@ -94,7 +94,7 @@ const ActivityDetail = () => {
                 startIcon={<DeleteIcon />}
                 variant='contained'
                 color='error'
-                onClick={onUpdateAttendance}
+                onClick={onUpdateAttendance('leave')}
               >
                 Cancel this event
               </Button>
@@ -104,7 +104,7 @@ const ActivityDetail = () => {
                 startIcon={<AddIcon />}
                 variant='contained'
                 color='primary'
-                onClick={onUpdateAttendance}
+                onClick={onUpdateAttendance('join')}
               >
                 Attend this Activity
               </Button>
@@ -114,7 +114,7 @@ const ActivityDetail = () => {
                 startIcon={<LogoutIcon />}
                 variant='contained'
                 color='secondary'
-                onClick={onUpdateAttendance}
+                onClick={onUpdateAttendance('leave')}
               >
                 Leave this Activity
               </Button>

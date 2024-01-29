@@ -1,5 +1,5 @@
 
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { ActivitySlice } from 'core/types/type';
 
 const initialState: ActivitySlice = {
