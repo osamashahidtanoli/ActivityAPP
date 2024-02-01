@@ -91,6 +91,18 @@ export interface Attendee {
     activityFilter: ActivityFilter
   }
 
+  export interface ProfileResponse {
+    userName: string;
+    displayName: string;
+    bio: string | null;
+    image: string | null;
+    following: boolean;
+    followerCount: number;
+    followingCount: number;
+    totalActivities: number;
+    photos: string[];
+  }
+
   
   
   

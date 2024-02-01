@@ -1,17 +1,26 @@
-import { Card, CardContent, Grid, IconButton } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Grid } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
 import styles from '../Home.module.css';
+import { purple } from '@mui/material/colors';
 
-const TotalFollowersCard = () => {
+interface Props {
+  totalFollowers: number;
+}
+
+const TotalFollowersCard = ({ totalFollowers }: Props) => {
   return (
-    <Grid item md={3}>
-      <Card sx={{ my: 5 }} className={styles.card}>
+    <Grid item md={4} sm={6}>
+      <Card>
         <CardContent>
-          <h4>Total Followers:</h4>
-          <h5 className={styles.cardItem}>3</h5>
-          <IconButton className={styles.cardIcon}>
-            <GroupIcon sx={{ color: '#fff', fontSize: '2.5rem' }} />
-          </IconButton>
+          <Box display={'flex'} columnGap={2}>
+            <Avatar sx={{ bgcolor: purple[500], width: 60, height: 60 }}>
+              <GroupIcon />
+            </Avatar>
+            <div>
+              <p className={styles.cardLabelInfo}>My Total Followers</p>
+              <h3 className={styles.cardValue}>{totalFollowers}</h3>
+            </div>
+          </Box>
         </CardContent>
       </Card>
     </Grid>

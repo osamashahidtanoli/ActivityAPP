@@ -1,17 +1,26 @@
-import { Card, CardContent, Grid, IconButton } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Grid } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import styles from '../Home.module.css';
+import { green } from '@mui/material/colors';
 
-const TotalActivitiesCard = () => {
+interface Props {
+  totalActivities: number;
+}
+
+const TotalActivitiesCard = ({ totalActivities }: Props) => {
   return (
-    <Grid item md={3}>
-      <Card sx={{ my: 5 }} className={styles.card}>
+    <Grid item md={4} sm={6}>
+      <Card>
         <CardContent>
-          <h4>Total Activities:</h4>
-          <h5 className={styles.cardItem}>3</h5>
-          <IconButton className={styles.cardIcon}>
-            <CalendarTodayIcon sx={{ color: '#fff', fontSize: '2.5rem' }} />
-          </IconButton>
+          <Box display={'flex'} columnGap={2}>
+            <Avatar sx={{ bgcolor: green[500], width: 60, height: 60 }}>
+              <CalendarTodayIcon />
+            </Avatar>
+            <div>
+              <p className={styles.cardLabelInfo}>My Total Activities</p>
+              <h3 className={styles.cardValue}>{totalActivities}</h3>
+            </div>
+          </Box>
         </CardContent>
       </Card>
     </Grid>

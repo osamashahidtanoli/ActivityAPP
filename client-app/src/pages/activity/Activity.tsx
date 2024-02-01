@@ -14,7 +14,7 @@ const Activity = () => {
   if (isError)
     return (
       <Alert sx={{ my: 5 }} severity='error'>
-        API Failed
+        {!isDataAvailable ? 'No Record Found' : 'Something Went Wrong'}
       </Alert>
     );
 
@@ -27,11 +27,6 @@ const Activity = () => {
           data?.map((activity) => (
             <ActivityList activity={activity} key={activity.id} />
           ))}
-        {!isDataAvailable && (
-          <Alert sx={{ my: 5 }} severity='warning'>
-            No Record Found
-          </Alert>
-        )}
       </Grid>
       <Grid item md={4} sm={12}>
         <ActivityFilter />

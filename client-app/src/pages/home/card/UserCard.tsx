@@ -1,37 +1,23 @@
-import { Button, Card, CardActions, CardContent, Grid } from '@mui/material';
-import { getCurrentUser } from 'core/selectors/selectors';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useAppSelector } from 'core/store/store';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'core/constants/constant';
+import { Box, Grid, Typography } from '@mui/material';
 import styles from '../Home.module.css';
+import dayjs from 'dayjs';
 
-const UserCard = () => {
-  const { displayUserName } = useAppSelector(getCurrentUser);
-  const navigate = useNavigate();
+interface Props {
+  displayUserName: string;
+}
 
-  const navigateToActivitiesPage = () => {
-    navigate(ROUTES.Activities);
-  };
+const UserCard = ({ displayUserName }: Props) => {
+  const currentDate = dayjs().format('dddd, D MM YYYY');
 
   return (
-    <Grid item md={3}>
-      <Card sx={{ my: 5 }} className={styles.card}>
-        <CardContent>
-          <h4>Welcome, {displayUserName}</h4>
-          <h5>Are you excited to see What's new?</h5>
-        </CardContent>
-        <CardActions>
-          <Button
-            variant='contained'
-            size='small'
-            sx={{ background: '#fff', color: '#673ab7', fontWeight: 600 }}
-            onClick={navigateToActivitiesPage}
-          >
-            Go to Activities <NavigateNextIcon />
-          </Button>
-        </CardActions>
-      </Card>
+    <Grid item md={12} sm={12}>
+      <Box sx={{ my: 5 }}>
+        <Typography variant='h5' component='h5'>
+          Hi <span className={styles.userName}>{displayUserName}</span>, Welcome
+          Back
+        </Typography>
+        <p className={styles.date}>{currentDate}</p>
+      </Box>
     </Grid>
   );
 };

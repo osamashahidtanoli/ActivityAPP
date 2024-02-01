@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { endpoint } from 'core/constants/constant';
 import { RootState } from 'core/store/store';
-import { Activity, ActivityGetRequest, ActivityPostRequest } from 'core/types/type';
+import { Activity, ActivityGetRequest, ActivityPostRequest, ProfileResponse } from 'core/types/type';
 
 export const activityApi = createApi({
   reducerPath: 'activityApi',
@@ -47,7 +47,13 @@ export const activityApi = createApi({
       }),
       providesTags: ['ActivityTag']
     }),
+    getUserProfile: builder.query<ProfileResponse, string>({
+      query: (userName) => ({
+        url: `Profiles/${userName}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetActivitiesQuery, usePostActivityMutation, useUpdateAttendanceMutation, useGetActivityQuery } = activityApi;
+export const { useGetActivitiesQuery, usePostActivityMutation, useUpdateAttendanceMutation, useGetActivityQuery, useGetUserProfileQuery } = activityApi;

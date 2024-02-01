@@ -1,11 +1,12 @@
 import {
   Avatar,
-  Divider,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  ListSubheader,
 } from '@mui/material';
+import { purple } from '@mui/material/colors';
 import { Attendee } from 'core/types/type';
 import React from 'react';
 
@@ -15,26 +16,33 @@ interface Props {
 
 const ActivityAttendees = ({ attendees }: Props) => {
   return (
-    <React.Fragment>
-      {/* <Typography variant='h5' component='h5' sx={{ mt: 5 }}>
-        Activity Attendees:
-      </Typography> */}
-      <List sx={{ width: '100%', mt: 5 }}>
-        {attendees.map((attendee) => (
-          <React.Fragment key={attendee.userName}>
-            <ListItem
-              sx={{ background: '#673ab7', color: '#fff', fontWeight: 'bold' }}
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ background: '#8561c5' }} />
-              </ListItemAvatar>
-              <ListItemText>{attendee.displayName}</ListItemText>
-            </ListItem>
-            <Divider component='li' />
-          </React.Fragment>
-        ))}
-      </List>
-    </React.Fragment>
+    <List
+      sx={{
+        width: '100%',
+        mt: 5,
+        maxHeight: 500,
+        overflowY: 'auto',
+        border: '1px solid #eee',
+      }}
+      subheader={
+        <ListSubheader
+          sx={{ color: '#8a8a8a', fontSize: '1.2rem', fontWeight: 'bold' }}
+        >
+          Attendees:
+        </ListSubheader>
+      }
+    >
+      {attendees.map((attendee) => (
+        <React.Fragment key={attendee.userName}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ background: purple[200] }} />
+            </ListItemAvatar>
+            <ListItemText>{attendee.displayName}</ListItemText>
+          </ListItem>
+        </React.Fragment>
+      ))}
+    </List>
   );
 };
 
